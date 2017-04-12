@@ -63,13 +63,6 @@ var simulation = d3.forceSimulation()
 d3.json("bookDump.json", function(error, graph) {
   if (error) throw error;
 
-/*
-var myarr = { nodes: [], links: [] }
-myarr["nodes"].push({"id":1});
-myarr["nodes"].push({"id":2});
-myarr["links"].push({"source":1,"target":2});
-myarr["links"].push({"source":1,"target":3});
-*/
 
 graph = { "nodes": graph, "links": [] }
 
@@ -87,37 +80,6 @@ for(var i=1; i<graph["nodes"].length;i++){
   }
 }
 
-/*
-graph = {
-  "nodes": [
-    {"id": "Myriel", "group": 1},
-    {"id": "Napoleon", "group": 1},
-    {"id": "Mlle.Baptistine", "group": 1},
-    {"id": "Mme.Magloire", "group": 1},
-    {"id": "CountessdeLo", "group": 1},
-    {"id": "Geborand", "group": 1},
-    {"id": "Champtercier", "group": 1},
-    {"id": "Cravatte", "group": 1},
-    {"id": "Count", "group": 1}
-  ],
-  "links": [
-    {"source": "Napoleon", "target": "Myriel", "value": 1},
-    {"source": "Mlle.Baptistine", "target": "Myriel", "value": 8},
-    {"source": "Mme.Magloire", "target": "Myriel", "value": 10},
-    {"source": "Mme.Magloire", "target": "Mlle.Baptistine", "value": 6},
-    {"source": "CountessdeLo", "target": "Myriel", "value": 1},
-    {"source": "Geborand", "target": "Myriel", "value": 1},
-    {"source": "Champtercier", "target": "Myriel", "value": 1},
-    {"source": "Cravatte", "target": "Myriel", "value": 1},
-    {"source": "Count", "target": "Myriel", "value": 2}
-  ]
- }
-*/
-
-
-//http://stackoverflow.com/questions/41482473/d3-js-v4-forced-directed-graph-zoom
-//zoom based on bostock's force-directed graph example
-
 
   //draw line for each link
   var link = g.append("g")
@@ -127,29 +89,13 @@ graph = {
     .enter().append("line")
       .attr("stroke-width", 2);
 
-/*
-  //draw circle for each node
-    var node = g.append("g")
-      .attr("class", "nodes")
-      .selectAll("circle")
-      .data(graph.nodes)
-      .enter().append("circle")
-      .attr("r", 5)
-      .attr("fill", function(d) {
-        return color(d.group);
-      })
-      .call(d3.drag()
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended));
-*/
   var node = g.append("g")
       .attr("class", "nodes")
     .selectAll("image")
     .data(graph.nodes)
     .enter()
     .append("a") 
-      .attr("xlink:href", function(d){return "http://google.com/#q="+d.title;}) 
+       .attr("xlink:href", function(d){return "http://google.com/#q="+d.title;}) 
     .append("image")
       //.append("svg:image")
       //.attr("xlink:href", "test.png")
@@ -163,11 +109,6 @@ graph = {
           .on("start", dragstarted)
           .on("drag", dragged)
           .on("end", dragended));
-
-
-//   node.append("a") 
-//      .attr("xlink:href", function(d){return "http://google.com";;}) 
-     // .on("dblclick",function(d){alert("hello");/*return "http://google.com";*/})
 
   node.append("title")
       .text(function(d) { return d.id; });
